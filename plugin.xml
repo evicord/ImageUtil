@@ -19,6 +19,7 @@
 				<param name="ios-package" value="ImageUtil" />
 			</feature>
 		</config-file>
-		<source-file src="src/ios/ImageUtil.m" />
+        <header-file src="src/ios/ImageUtil.h"/>
+        <source-file src="src/ios/ImageUtil.m"/>
 	</platform>
 </plugin>
