@@ -1,27 +1,28 @@
-/********* ImageUtil.m Cordova Plugin Implementation *******/
+//
+//  ImageUtil.m
+//  panart
+//
+//  Created by zsly on 16/1/13.
+//
+//
 
-#import <Cordova/CDV.h>
-
-@interface ImageUtil : CDVPlugin {
-  // Member variables go here.
-}
-
-- (void)coolMethod:(CDVInvokedUrlCommand*)command;
-@end
+#import "ImageUtil.h"
 
 @implementation ImageUtil
-
-- (void)coolMethod:(CDVInvokedUrlCommand*)command
+-(void)toBinary:(CDVInvokedUrlCommand*)command
 {
-    CDVPluginResult* pluginResult = nil;
-    NSString* echo = [command.arguments objectAtIndex:0];
-
-    if (echo != nil && [echo length] > 0) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
-    } else {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    NSString *path=command.arguments[0];
+    NSError *error=nil;
+    NSData *data=[NSData dataWithContentsOfFile:path options:NSDataReadingMappedIfSafe error:&error];
+    CDVPluginResult*pluginResult=nil;
+    if(error)
+    {
+        pluginResult= [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:error.localizedDescription];
     }
-
+    else
+    {
+        pluginResult= [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArrayBuffer:data];
+    }
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
