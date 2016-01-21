@@ -40,6 +40,7 @@
 
 -(void)SendMsg:(CDVPluginResult*)pluginResult
 {
+    [pluginResult setKeepCallbackAsBool:YES];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
 }
 
